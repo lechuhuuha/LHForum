@@ -1,0 +1,12 @@
+Big things need to do :
+--Display quest by tags 
+Quest detail
+Rating system
+Answer and reply system
+Report system
+Filter quest
+Search quest
+User system
+Small things need to do :
+crud with cate,quest,tags
+views
