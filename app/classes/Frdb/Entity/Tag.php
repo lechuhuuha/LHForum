@@ -19,12 +19,22 @@ class Tag
     {
         $questions_tags = $this->questions_tagsTable->find('tags_id', $this->id);
         $quests = [];
+        $totalQuestInTag = 0;
         foreach ($questions_tags as $questions_tag) {
             $quest = $this->questTable->findById($questions_tag->questions_id);
             if ($quest) {
                 $quests[] = $quest;
+                $totalQuestInTag++;
             }
         }
-        return $quests;
+        return [
+            'quests' => $quests,
+            'totalQuestInTag' => $totalQuestInTag
+        ];
+    }
+    public function clearQuest()
+    {
+
+        $this->questions_tagsTable->deleteWhere('tags_id', $this->id);
     }
 }
