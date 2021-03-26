@@ -155,13 +155,17 @@ class DatabaseTable
     /**
      * Delete the record with the id provided
      * @param mixed $id
-     * @return void
+     * 
      */
     public function delete($id)
     {
+        $entity = new $this->className(...$this->constructorArgs);
+
         $parameters = [':id' => $id];
+        $entity->{$this->primaryKey} = $id;
         $this->query('DELETE FROM `' . $this->table . '` WHERE
         `' . $this->primaryKey . '` = :id', $parameters);
+        return $entity;
     }
     /**
      * Delete the record with the column and value provided
