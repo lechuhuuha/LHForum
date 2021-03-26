@@ -31,4 +31,33 @@ class Category
             ]
         ];
     }
+    public function edit()
+    {
+        $title = 'Add category';
+        if (isset($_GET['id'])) {
+            $category = $this->categoriesTable->findById($_GET['id']);
+            $title = 'Edit category';
+        }
+        return [
+            'template' => 'editcate.html.php',
+            'title' => $title,
+            'variables' => [
+                'category' => $category ?? null,
+                'title' => $title
+            ]
+        ];
+    }
+    public function saveEdit()
+    {
+        $category = $_POST['cate'];
+        $category['updated_at'] = new \DateTime();
+        $this->categoriesTable->save($category);
+        header('location: ' . URLROOT . 'category/list');
+    }
+    public function delete()
+    {
+        $categoryEntity =  $this->categoriesTable->delete($_POST['id']);
+        $categoryEntity->clearQuest();
+        header('location: ' . URLROOT . 'category/list');
+    }
 }
