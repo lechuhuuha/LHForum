@@ -14,7 +14,6 @@
         <label for="tab5">Recent Post</label>
         <?php if (!empty($quests)) : ?>
             <?php foreach ($quests as $quest) : ?>
-
                 <section id="content1">
                     <!--Recent Question Content Section -->
                     <div class="question-type2033">
@@ -35,7 +34,7 @@
                                     </div>
                                     <div class="ques-details10018">
                                         <p>
-                                            <?php echo $quest->summary ?>
+                                            <?= htmlspecialchars($quest->summary, ENT_QUOTES, 'UTF-8') ?>
                                         </p>
                                     </div>
                                     <hr />
@@ -43,13 +42,20 @@
                                         <a href="#"><i class="fa fa-star" aria-hidden="true"> 5 </i>
                                         </a>
                                         <?php foreach ($quest->getCategory() as $item) : ?>
-                                            <a href="<?php echo URLROOT . 'quest/list?category=' . $item->id ?>"><i class="fa fa-folder" aria-hidden="true"><?= $item->name ?>
+                                            <a href="<?php echo URLROOT . 'quest/list?category=' . $item->id ?>"><i class="fa fa-folder" aria-hidden="true"><?= htmlspecialchars($item->name, ENT_QUOTES, 'UTF-8') ?>
                                                 </i></a>
                                         <?php endforeach; ?>
+                                        <?php if ($quest->updated_at) :  ?>
+                                            <a href="#"><i class="fa fa-calendar-plus-o" aria-hidden="true">
+                                                    <?php $dateUp = new DateTime($quest->updated_at);
+                                                    echo $dateUp->format('jS F Y') ?></i></a>
+                                        <?php else : ?>
+                                            <a href="#"><i class="fa fa-calendar-minus-o" aria-hidden="true">
+                                                    <?php $date = new DateTime($quest->created_at);
+                                                    echo $date->format('jS F Y') ?></i></a>
+                                        <?php endif; ?>
 
-                                        <a href="#"><i class="fa fa-clock-o" aria-hidden="true">
-                                                <?php $date = new DateTime($quest->created_at);
-                                                echo $date->format('jS F Y') ?></i></a>
+
                                         <a href="#"><i class="fa fa-question-circle-o" aria-hidden="true">
                                                 Question</i></a>
                                         <a href="#"><i class="fa fa-bug" aria-hidden="true">
@@ -71,11 +77,13 @@
                                                 <?= $quest->views ?></i>
                                         </button>
                                     </a>
+                                    <!-- edit and delete form -->
                                     <a class="q-type238" href="<?php echo URLROOT . 'quest/edit?id=' . $quest->id ?>">Edit</a>
                                     <form action="<?php echo URLROOT . 'quest/delete' ?>" method="POST">
                                         <input type="hidden" name="id" value="<?= $quest->id ?>">
                                         <input class="q-type238" type="submit" value="Delete">
                                     </form>
+                                    <!-- !edit and delete form -->
                                 </div>
                             </div>
                         </div>
