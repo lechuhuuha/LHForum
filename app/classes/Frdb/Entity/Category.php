@@ -21,12 +21,22 @@ class Category
     {
         $category_questions = $this->category_questionsTable->find('category_id', $this->id);
         $quests = [];
+        $totalQuestInCate = 0;
         foreach ($category_questions as $category_question) {
             $quest = $this->questsTable->findById($category_question->questions_id);
             if ($quest) {
                 $quests[] = $quest;
+                $totalQuestInCate++;
             }
         }
-        return $quests;
+
+        return [
+            'quests' => $quests,
+            'totalQuestInCate' => $totalQuestInCate
+        ];
+    }
+    public function clearQuest()
+    {
+        $this->category_questionsTable->deleteWhere('category_id', $this->id);
     }
 }
