@@ -40,6 +40,11 @@ class FrdbRoutes implements \Lchh\Routes
             $this->questsTable,
             $this->tagsTable
         );
+        $tagController = new \Frdb\Controllers\Tag(
+            $this->tagsTable,
+            $this->questsTable,
+            $this->questions_tagsTable
+        );
         $routes = [
             // Page controller
             '' => [
@@ -88,6 +93,45 @@ class FrdbRoutes implements \Lchh\Routes
                 'GET' => [
                     'controller' => $categoryController,
                     'action' => 'list'
+                ]
+            ],
+            'category/edit' => [
+                'GET' => [
+                    'controller' => $categoryController,
+                    'action' => 'edit'
+                ],
+                'POST' => [
+                    'controller' => $categoryController,
+                    'action' => 'saveEdit'
+                ]
+            ],
+            'category/delete' => [
+                'POST' => [
+                    'controller' => $categoryController,
+                    'action' => 'delete'
+                ]
+            ],
+            // tag controller
+            'tag/list' => [
+                'GET' => [
+                    'controller' => $tagController,
+                    'action' => 'list'
+                ]
+            ],
+            'tag/edit' => [
+                'GET' => [
+                    'controller' => $tagController,
+                    'action' => 'edit'
+                ],
+                'POST' => [
+                    'controller' => $tagController,
+                    'action' => 'saveEdit'
+                ]
+            ],
+            'tag/delete' => [
+                'POST' => [
+                    'controller' => $tagController,
+                    'action' => 'delete'
                 ]
             ]
         ];
