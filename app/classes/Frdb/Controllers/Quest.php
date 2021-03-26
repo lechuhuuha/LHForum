@@ -28,11 +28,10 @@ class Quest
     {
         if (isset($_GET['category'])) {
             $category = $this->categoriesTable->findById($_GET['category']);
-
-            $quests = $category->getQuests();
+            $quests = $category->getQuests()['quests'];
         } elseif (isset($_GET['tag'])) {
             $tag = $this->tagsTable->findById($_GET['tag']);
-            $quests = $tag->getQuests();
+            $quests = $tag->getQuests()['quests'];
         } else {
             $quests = $this->questTable->findAll();
         }
@@ -54,7 +53,7 @@ class Quest
         $title = 'Ask quest';
         if (isset($_GET['id'])) {
             $quest = $this->questTable->findById($_GET['id']);
-            $title = 'Edit quesk';
+            $title = 'Edit quest';
         }
         return [
             'template' => 'editquest.html.php',
