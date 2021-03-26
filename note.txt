@@ -8,5 +8,7 @@ Filter quest
 Search quest
 User system
 Small things need to do :
-crud with cate,quest,tags
+--crud with cate,quest,tags
 views
+tags list with questions has been asked based on day or on week day=1 or day =7
+validate every form in website
