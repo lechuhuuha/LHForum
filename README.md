@@ -1,7 +1,10 @@
 # My Forum with my own framework develop from Php novice to ninja 6th edition book 
+All php code is mine
+
+
 Below is the template i use
 Template from radwan503
-# Ask-Online-HTML-Forum-Template
+# Ask-Online-HTML-Forum-Template by radwan503
 
 Live Demo:https://radwan503.github.io/Ask-Online-HTML-Forum-Template/.
 behance:https://www.behance.net/gallery/75018993/Ask-Online-HTML-Forum-Template
