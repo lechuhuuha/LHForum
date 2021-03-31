@@ -29,7 +29,7 @@
                                 <div class="right-description893">
                                     <div id="que-hedder2983">
                                         <h3>
-                                            <a href="<?php echo URLROOT . 'quest/list?id=' . $quest->id ?>" target="_blank"><?php echo $quest->title ?></a>
+                                            <a href="<?php echo URLROOT . 'quest/detail?id=' . $quest->id ?>" target="_blank"><?php echo $quest->title ?></a>
                                         </h3>
                                     </div>
                                     <div class="ques-details10018">
