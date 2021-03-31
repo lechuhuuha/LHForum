@@ -65,6 +65,21 @@ class Quest
             ]
         ];
     }
+    public function detail()
+    {
+        if (isset($_GET['id'])) {
+            $quest = $this->questTable->findById($_GET['id']);
+            $title = 'Quest detail';
+        }
+        return [
+            'template'  => 'questdetail.html.php',
+            'title' => $title,
+            'variables' => [
+                'quest' => $quest ?? null,
+
+            ]
+        ];
+    }
     public function saveEdit()
     {
         // if (isset($_GET['id'])) {

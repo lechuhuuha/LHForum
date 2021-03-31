@@ -88,6 +88,12 @@ class FrdbRoutes implements \Lchh\Routes
                     'action' => 'delete'
                 ]
             ],
+            'quest/detail' => [
+                'GET' => [
+                    'controller' => $questController,
+                    'action' => 'detail'
+                ]
+            ],
             // category controller
             'category/list' => [
                 'GET' => [
