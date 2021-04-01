@@ -4,6 +4,7 @@ namespace Frdb\Controllers;
 
 use \Lchh\DatabaseTable;
 use \Lchh\Authentication;
+use \Lchh\CountOnl;
 
 class Quest
 {
@@ -11,18 +12,22 @@ class Quest
     private $categoriesTable;
     private $tagsTable;
     private $category_questionsTable;
+    private $CountOnl;
 
     public function __construct(
         DatabaseTable $questTable,
         DatabaseTable $categoriesTable,
         DatabaseTable $tagsTable,
-        DatabaseTable $category_questionsTable
+        DatabaseTable $category_questionsTable,
+        CountOnl $CountOnl
+
 
     ) {
         $this->questTable = $questTable;
         $this->categoriesTable = $categoriesTable;
         $this->tagsTable = $tagsTable;
         $this->category_questionsTable = $category_questionsTable;
+        $this->CountOnl = $CountOnl;
     }
     public function list()
     {
@@ -67,9 +72,23 @@ class Quest
     }
     public function detail()
     {
+
+        $title = 'Quest detail';
+
         if (isset($_GET['id'])) {
             $quest = $this->questTable->findById($_GET['id']);
-            $title = 'Quest detail';
+            $uvon = $this->CountOnl->getRemoteAddr();
+
+            $inactive = 86400;
+            if (!isset($_SESSION['expire'])) $_SESSION['expire'] = time() + $inactive;
+            if ($this->CountOnl->isBotDetected()) {
+                return;
+            } else if (isset($quest->views) && intval($quest->views) == 0) {
+                $quest->inscView(intval($quest->views) + 1);
+            } elseif (isset($uvon) && time() > $_SESSION['expire']) {
+                $quest->inscView(intval($quest->views) + 1);
+                unset($_SESSION['expire']);
+            }
         }
         return [
             'template'  => 'questdetail.html.php',
