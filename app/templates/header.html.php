@@ -34,6 +34,9 @@
                             <li>
                                 <a href="logIn.html"><i class="fa fa-user" aria-hidden="true"></i>Login Area</a>
                             </li>
+                            <li>
+                                <a href=""><i class="fa fa-users" aria-hidden="true"></i>User online : <?= $calOnl['online'] ?> </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
