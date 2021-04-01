@@ -151,7 +151,13 @@ class DatabaseTable
         $fields = $this->processDates($fields);
         $this->query($query, $fields);
     }
-
+    // public function updateWhere($column, $fields)
+    // {
+    //     $query = 'UPDATE ' . $this->table . ' SET ';
+    //     foreach ($fields as $key => $value) {
+    //         $query .= '`' . $key . '` = : ' . $key . ',';
+    //     }
+    // }
     /**
      * Delete the record with the id provided
      * @param mixed $id
@@ -181,6 +187,7 @@ class DatabaseTable
         ];
         $query = $this->query($query, $parameters);
     }
+
     /**
      * Process Date with fields provided
      * @param mixed $fields
@@ -206,8 +213,6 @@ class DatabaseTable
         try {
             // print_r($this->primaryKey);
             // print_r($this->className);
-
-            // print_r($this->primaryKey);
             if ($record[$this->primaryKey] == '') {
                 $record[$this->primaryKey] = null;
             }
