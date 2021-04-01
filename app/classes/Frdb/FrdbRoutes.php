@@ -10,15 +10,17 @@ class FrdbRoutes implements \Lchh\Routes
     private $postFromRendaDb;
     private $category_questionsTable;
     private $questions_tagsTable;
+    private $CountOnl;
     public function __construct()
     {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
-        $this->questsTable = new \Lchh\DatabaseTable($pdo, 'questions', 'id', '\Frdb\Entity\Quest', [&$this->categoriesTable, &$this->tagsTable, &$this->questions_tagsTable, &$this->category_questionsTable]);
+        $this->questsTable = new \Lchh\DatabaseTable($pdo, 'questions', 'id', '\Frdb\Entity\Quest', [&$this->questsTable, &$this->categoriesTable, &$this->tagsTable, &$this->questions_tagsTable, &$this->category_questionsTable]);
         $this->categoriesTable = new \Lchh\DatabaseTable($pdo, 'category', 'id', '\Frdb\Entity\Category', [&$this->questsTable, &$this->category_questionsTable]);
         $this->tagsTable = new \Lchh\DatabaseTable($pdo, 'tags', 'id', '\Frdb\Entity\Tag', [&$this->questsTable, &$this->questions_tagsTable]);
         $this->questions_tagsTable = new \Lchh\DatabaseTable($pdo, 'questions_tags', 'tags_id');
         $this->category_questionsTable = new \Lchh\DatabaseTable($pdo, 'category_questions', 'category_id');
         $this->postFromRendaDb = new \Lchh\DatabaseTable($secondPdo, 'posts', 'id');
+        $this->CountOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress());
     }
     public function getRoutes(): array
     {
@@ -26,7 +28,8 @@ class FrdbRoutes implements \Lchh\Routes
             $this->questsTable,
             $this->categoriesTable,
             $this->tagsTable,
-            $this->category_questionsTable
+            $this->category_questionsTable,
+            $this->CountOnl
         );
         $pageControllers = new \Frdb\Controllers\Pages(
             $this->questsTable,
@@ -156,4 +159,5 @@ class FrdbRoutes implements \Lchh\Routes
     //         return false;
     //     }
     // }
+
 }
