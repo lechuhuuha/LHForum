@@ -9,21 +9,32 @@ class Quest
     public $summary;
     public $content;
     public $views;
+    private $questsTable;
     private $categoriesTable;
     private $tagsTable;
     private $questions_tagsTable;
     private $category_questionsTable;
     public function __construct(
+        \Lchh\DatabaseTable $questsTable,
         \Lchh\DatabaseTable $categoriesTable,
         \Lchh\DatabaseTable $tagsTable,
         \Lchh\DatabaseTable $questions_tagsTable,
         \Lchh\DatabaseTable $category_questionsTable
 
     ) {
+        $this->questsTable = $questsTable;
         $this->categoriesTable = $categoriesTable;
         $this->tagsTable = $tagsTable;
         $this->questions_tagsTable = $questions_tagsTable;
         $this->category_questionsTable = $category_questionsTable;
+    }
+    public function inscView($views)
+    {
+        $quest = [
+            'id' => $this->id,
+            'views' => $views
+        ];
+        $this->questsTable->save($quest);
     }
     public function getCategory()
     {
