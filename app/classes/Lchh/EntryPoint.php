@@ -41,6 +41,7 @@ class EntryPoint
         );
         unset($controller);
         unset($action);
+        $userOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress);
         // $authentication = $this->routes->getAuthentication();
 
         // if (
@@ -78,7 +79,8 @@ class EntryPoint
                 // 'loggedIn' => $authentication->isLoggedIn(),
                 'output' => $output,
                 'defaultOutput' => $defaultOutput,
-                'title' => $title
+                'title' => $title,
+                'calOnl' => $userOnl->calOnl()
             ]
         );
     }
