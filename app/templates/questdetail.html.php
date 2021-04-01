@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="post-details-info1982">
-            <p><?= htmlspecialchars($quest->content, ENT_QUOTES, 'UTF-8') ?></p>
+            <p><?= $quest->content ?></p>
             <hr />
             <div class="post-footer29032">
                 <div class="l-side2023">
@@ -50,7 +50,7 @@
                     <?php endif; ?>
                     <a href="#"><i class="fa fa-commenting commenting2" aria-hidden="true">
                             5 answer</i></a>
-                    <i class="fa fa-user user2" aria-hidden="true"> 70 views</i>
+                    <i class="fa fa-user user2" aria-hidden="true"> <?= $quest->views ?></i>
                 </div>
                 <div class="l-rightside39">
                     <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like">
