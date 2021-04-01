@@ -1,6 +1,7 @@
 <?php
 
 try {
+    if (!isset($_SESSION)) session_start();
     include __DIR__ . '/includes/autoload.php';
     include __DIR__ . '/includes/Config.php';
     $route = ltrim(strtok($_SERVER['REQUEST_URI'], '?'), '/');
