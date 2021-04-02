@@ -32,7 +32,7 @@ class CountOnl
         $nrvst = 0; // to store the number of the visistors
         $today = date("F j, Y, g:i a");                 // March 10, 2001, 5:16 pm
 
-        // sets the row with the current user /visitor that must be added in $fileTxt(and current TimpStamp) 
+        // sets the row with the current user /visitor that must be added in $fileTxt(and current TimeStamp) 
         $addRow[] = $uvon . $sep . time();
 
         // check if the file from $fileTxt exists and is writable
