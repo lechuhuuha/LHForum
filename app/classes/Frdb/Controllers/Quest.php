@@ -79,7 +79,7 @@ class Quest
             $quest = $this->questTable->findById($_GET['id']);
             $uvon = $this->CountOnl->getRemoteAddr();
 
-            $inactive = 86400;
+            $inactive = 120;
             if (!isset($_SESSION['expire'])) $_SESSION['expire'] = time() + $inactive;
             if ($this->CountOnl->isBotDetected()) {
                 return;
