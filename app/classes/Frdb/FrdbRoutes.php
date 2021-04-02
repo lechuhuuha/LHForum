@@ -10,6 +10,7 @@ class FrdbRoutes implements \Lchh\Routes
     private $postFromRendaDb;
     private $category_questionsTable;
     private $questions_tagsTable;
+    private $newslettersTable;
     private $CountOnl;
     public function __construct()
     {
@@ -20,6 +21,7 @@ class FrdbRoutes implements \Lchh\Routes
         $this->questions_tagsTable = new \Lchh\DatabaseTable($pdo, 'questions_tags', 'tags_id');
         $this->category_questionsTable = new \Lchh\DatabaseTable($pdo, 'category_questions', 'category_id');
         $this->postFromRendaDb = new \Lchh\DatabaseTable($secondPdo, 'posts', 'id');
+        $this->newslettersTable = new \Lchh\DatabaseTable($pdo, 'newsletter', 'id');
         $this->CountOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress());
     }
     public function getRoutes(): array
@@ -48,6 +50,7 @@ class FrdbRoutes implements \Lchh\Routes
             $this->questsTable,
             $this->questions_tagsTable
         );
+        $newsletterController = new \Frdb\Controllers\Newsletter($this->newslettersTable);
         $routes = [
             // Page controller
             '' => [
@@ -66,6 +69,17 @@ class FrdbRoutes implements \Lchh\Routes
                 'GET' => [
                     'controller' => $pageControllers,
                     'action' => 'sidebar'
+                ]
+            ],
+            // newsletter controller
+            'newsletter' => [
+                'GET' => [
+                    'controller' => $newsletterController,
+                    'action' => 'edit'
+                ],
+                'POST' => [
+                    'controller' => $newsletterController,
+                    'action' => 'saveEdit'
                 ]
             ],
             // quest controller
