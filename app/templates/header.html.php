@@ -12,6 +12,8 @@
     <link href="<?php echo URLROOT  ?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo URLROOT  ?>css/editor.css" rel="stylesheet" type="text/css">
     <link href="<?php echo URLROOT  ?>css/responsive.css" rel="stylesheet" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+
 </head>
 
 
@@ -75,22 +77,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav"></ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="<?php echo URLROOT ?>">Home</a></li>
-                        <li class="dropdown">
+                        <li><a class="dropdown" href="<?php echo URLROOT ?>">Home</a></li>
+                        <li class="">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Question <span class="caret"></span></a>
                             <ul class="dropdown-menu animated zoomIn">
                                 <li>
-                                    <a href="<?php echo URLROOT . 'quest/edit' ?>">Ask Question</a>
+                                    <a class="dropdown" href="<?php echo URLROOT . 'quest/edit' ?>">Ask Question</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo URLROOT . 'category/list' ?>">Question Categories</a>
+                                    <a class="dropdown" href="<?php echo URLROOT . 'category/list' ?>">Question Categories</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
                             <ul class="dropdown-menu animated zoomIn">
-                                <li><a href="user.html">All User </a></li>
+                                <li><a class="dropdown" href="user.html">All User </a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -102,6 +104,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <li><a class="dropdown" href="<?= URLROOT ?>tag/list">Tags</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Page <span class="caret"></span></a>
                             <ul class="dropdown-menu animated zoomIn">
@@ -124,7 +127,7 @@
                                 <li><a href="#"> 404 </a></li>
                             </ul>
                         </li>
-                        <li><a href="contact_us.html">Contact us</a></li>
+                        <li><a class="dropdown" href="<?= URLROOT ?>newsletter">Contact us</a></li>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -132,3 +135,13 @@
             <!-- /.container-fluid -->
         </nav>
     </div>
+    <script>
+        $(function() {
+            $('.dropdown').each(function() {
+                if ($(this).prop('href') == window.location.href) {
+                    $(this).addClass('active');
+                    $(this).parents('li').addClass('active');
+                }
+            })
+        });
+    </script>
