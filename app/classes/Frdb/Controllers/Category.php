@@ -42,8 +42,7 @@ class Category
             'template' => 'editcate.html.php',
             'title' => $title,
             'variables' => [
-                'category' => $category ?? null,
-                'title' => $title
+                'category' => $category ?? null
             ]
         ];
     }
