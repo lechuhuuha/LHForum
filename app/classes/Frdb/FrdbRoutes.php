@@ -10,8 +10,12 @@ class FrdbRoutes implements \Lchh\Routes
     private $postFromRendaDb;
     private $category_questionsTable;
     private $questions_tagsTable;
+    private $users_emailTable;
     private $newslettersTable;
+    private $usersTable;
+    private $emailTable;
     private $CountOnl;
+    private $authentication;
     public function __construct()
     {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
@@ -20,9 +24,13 @@ class FrdbRoutes implements \Lchh\Routes
         $this->tagsTable = new \Lchh\DatabaseTable($pdo, 'tags', 'id', '\Frdb\Entity\Tag', [&$this->questsTable, &$this->questions_tagsTable]);
         $this->questions_tagsTable = new \Lchh\DatabaseTable($pdo, 'questions_tags', 'tags_id');
         $this->category_questionsTable = new \Lchh\DatabaseTable($pdo, 'category_questions', 'category_id');
+        $this->users_emailTable = new \Lchh\DatabaseTable($pdo, 'users_email', 'user_id');
         $this->postFromRendaDb = new \Lchh\DatabaseTable($secondPdo, 'posts', 'id');
         $this->newslettersTable = new \Lchh\DatabaseTable($pdo, 'newsletter', 'id');
+        $this->usersTable = new \Lchh\DatabaseTable($pdo, 'users', 'id', '\Frdb\Entity\User', [&$this->users_emailTable]);
+        $this->emailTable = new \Lchh\DatabaseTable($pdo, 'email', 'id');
         $this->CountOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress());
+        $this->authentication = new \Lchh\Authentication($this->usersTable, 'username', 'password');
     }
     public function getRoutes(): array
     {
@@ -51,6 +59,8 @@ class FrdbRoutes implements \Lchh\Routes
             $this->questions_tagsTable
         );
         $newsletterController = new \Frdb\Controllers\Newsletter($this->newslettersTable);
+        $loginController = new \Frdb\Controllers\Login($this->authentication);
+        $userController = new \Frdb\Controllers\Register($this->usersTable, $this->emailTable, $this->users_emailTable);
         $routes = [
             // Page controller
             '' => [
@@ -156,14 +166,63 @@ class FrdbRoutes implements \Lchh\Routes
                     'controller' => $tagController,
                     'action' => 'delete'
                 ]
+            ],
+            // login controller
+            'login' => [
+                'GET' => [
+                    'controller' => $loginController,
+                    'action' => 'loginForm'
+                ],
+                'POST' => [
+                    'controller' => $loginController,
+                    'action' => 'processLogin'
+                ]
+            ],
+            'login/success' => [
+                'GET' => [
+                    'controller' => $loginController,
+                    'action' => 'success'
+                ],
+                'login' => true
+            ],
+            'login/error' => [
+                'GET' => [
+                    'controller' => $loginController,
+                    'action' => 'error'
+                ]
+            ],
+            // register controller
+            'user/register' => [
+                'GET' => [
+                    'controller' => $userController,
+                    'action' => 'registrationForm'
+                ],
+                'POST' => [
+                    'controller' => $userController,
+                    'action' => 'registerUser'
+                ]
+            ],
+            'user/success' => [
+                'GET' => [
+                    'controller' => $userController,
+                    'action' => 'success'
+                ]
+            ],
+            'logout' => [
+                'GET' => [
+                    'controller' => $loginController,
+                    'action' => 'logout'
+                ]
             ]
+
+
         ];
         return $routes;
     }
-    // public function getAuthentication(): \Lchh\Authentication
-    // {
-    //     return $this->authentication;
-    // }
+    public function getAuthentication(): \Lchh\Authentication
+    {
+        return $this->authentication;
+    }
     // public function checkPermission($permission): bool
     // {
     //     $user = $this->authentication->getUser();
