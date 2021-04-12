@@ -1,0 +1,7 @@
+when try to using databasetable class should turn off function to work with database and only return value that get from user input 
+Bug that i can not fixed right now : 
+Notice: Undefined index: id in C:\xampp\htdocs\testFW\app\classes\Lchh\DatabaseTable.php on line 200
+Descriptiion : 
+function Save in Lchh\DatabaseTable class have trouble with the conditional operator "if" 
+Extent of damage : 
+Right now i don't know bc i made some few changes in order to work but the bug still there 
