@@ -80,7 +80,10 @@ class Quest
             $uvon = $this->CountOnl->getRemoteAddr();
 
             $inactive = 120;
-            if (!isset($_SESSION['expire'])) $_SESSION['expire'] = time() + $inactive;
+            if (!isset($_SESSION['expire'])) {
+                $quest->inscView(intval($quest->views) + 1);
+                $_SESSION['expire'] = time() + $inactive;
+            }
             if ($this->CountOnl->isBotDetected()) {
                 return;
             } else if (isset($quest->views) && intval($quest->views) == 0) {
