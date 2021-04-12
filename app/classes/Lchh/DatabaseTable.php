@@ -213,6 +213,7 @@ class DatabaseTable
         try {
             // print_r($this->primaryKey);
             // print_r($this->className);
+            // print_r($record);
             if ($record[$this->primaryKey] == '') {
                 $record[$this->primaryKey] = null;
             }
