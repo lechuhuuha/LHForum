@@ -12,6 +12,7 @@
     <link href="<?php echo URLROOT  ?>css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo URLROOT  ?>css/editor.css" rel="stylesheet" type="text/css">
     <link href="<?php echo URLROOT  ?>css/responsive.css" rel="stylesheet" type="text/css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
 
 </head>
@@ -34,7 +35,12 @@
                                 <a href="#"><i class="fa fa-headphones" aria-hidden="true"></i>Support</a>
                             </li>
                             <li>
-                                <a href="logIn.html"><i class="fa fa-user" aria-hidden="true"></i>Login Area</a>
+                                <?php if ($loggedIn) : ?>
+                                    <a href="<?= URLROOT ?>logout"><i class="fa fa-user" aria-hidden="true"></i>Logout</a>
+                                <?php else : ?>
+                                    <a href="<?= URLROOT ?>login"><i class="fa fa-user" aria-hidden="true"></i>Login Area</a>
+                                <?php endif; ?>
+
                             </li>
                             <li>
                                 <a href=""><i class="fa fa-users" aria-hidden="true"></i>User online : <?= $calOnl['online'] ?> </a>
