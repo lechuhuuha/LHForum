@@ -181,28 +181,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li>
-                                    <div class="comment-avatar">
-                                        <img src="image/images.png" alt="" />
-                                    </div>
-                                    <div class="comment-box">
-                                        <div class="comment-head">
-                                            <h6 class="comment-name">
-                                                <a href="#">Lorena Rojero</a>
-                                            </h6>
-                                            <span><i class="fa fa-clock-o" aria-hidden="true">
-                                                    January 15 , 2014 at 10:00 pm</i></span>
-                                            <i class="fa fa-reply"></i>
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                        <div class="comment-content">
-                                            Lorem ipsum dolor sit amet, consectetur
-                                            adipisicing elit. Velit omnis animi et iure
-                                            laudantium vitae, praesentium optio, sapiente
-                                            distinctio illo?
-                                        </div>
-                                    </div>
-                                </li>
+
                             </ul>
                         </li>
                         <li>
@@ -231,6 +210,7 @@
                                 </div>
                             </div>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
