@@ -42,14 +42,15 @@ class EntryPoint
         unset($controller);
         unset($action);
         $userOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress);
-        // $authentication = $this->routes->getAuthentication();
+        $authentication = $this->routes->getAuthentication();
 
-        // if (
-        //     isset($routes[$this->route]['login'])
-        //     && !$authentication->isLoggedIn()
-        // ) {
-        //     header('Location:' . URLROOT . 'login/error');
-        // } elseif (
+        if (
+            isset($routes[$this->route]['login'])
+            && !$authentication->isLoggedIn()
+        ) {
+            header('Location:' . URLROOT . 'login/error');
+        } 
+        // elseif (
         //     isset($routes[$this->route]['permissions'])
         //     && !$this->routes->checkPermission($routes[$this->route]['permissions'])
         // ) {
@@ -76,7 +77,7 @@ class EntryPoint
         echo $this->loadTemplate(
             'layout.html.php',
             [
-                // 'loggedIn' => $authentication->isLoggedIn(),
+                'loggedIn' => $authentication->isLoggedIn(),
                 'output' => $output,
                 'defaultOutput' => $defaultOutput,
                 'title' => $title,
