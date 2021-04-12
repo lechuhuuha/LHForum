@@ -1,14 +1,16 @@
 Big things need to do :
 --Display quest by tags 
-Quest detail
+--Quest detail
 Rating system
 Answer and reply system
 Report system
 Filter quest
 Search quest
 User system
+validate every form in website
 Small things need to do :
 --crud with cate,quest,tags
 --views and online users
+like and dislike system
+rating system
 tags list with questions has been asked based on day or on week day=1 or day =7
-validate every form in website
