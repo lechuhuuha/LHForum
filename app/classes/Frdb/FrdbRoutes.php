@@ -14,6 +14,9 @@ class FrdbRoutes implements \Lchh\Routes
     private $newslettersTable;
     private $usersTable;
     private $emailTable;
+    private $answersTable;
+    private $user_answer_questTable;
+    private $answerService;
     private $CountOnl;
     private $authentication;
     public function __construct()
@@ -29,8 +32,11 @@ class FrdbRoutes implements \Lchh\Routes
         $this->newslettersTable = new \Lchh\DatabaseTable($pdo, 'newsletter', 'id');
         $this->usersTable = new \Lchh\DatabaseTable($pdo, 'users', 'id', '\Frdb\Entity\User', [&$this->users_emailTable]);
         $this->emailTable = new \Lchh\DatabaseTable($pdo, 'email', 'id');
+        $this->answersTable = new \Lchh\DatabaseTable($pdo, 'answers', 'id');
+        $this->user_answer_questTable = new \Lchh\DatabaseTable($pdo, 'users_answers_questions', 'user_id');
         $this->CountOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress());
         $this->authentication = new \Lchh\Authentication($this->usersTable, 'username', 'password');
+        $this->answerService = new \Frdb\Service\Answer($this->answersTable, $this->user_answer_questTable, $this->authentication);
     }
     public function getRoutes(): array
     {
@@ -39,6 +45,7 @@ class FrdbRoutes implements \Lchh\Routes
             $this->categoriesTable,
             $this->tagsTable,
             $this->category_questionsTable,
+            $this->answerService,
             $this->CountOnl
         );
         $pageControllers = new \Frdb\Controllers\Pages(
@@ -119,6 +126,12 @@ class FrdbRoutes implements \Lchh\Routes
                 'GET' => [
                     'controller' => $questController,
                     'action' => 'detail'
+                ]
+            ],
+            'quest/answer' => [
+                'POST' => [
+                    'controller' => $this->answerService,
+                    'action' => 'saveEdit'
                 ]
             ],
             // category controller
