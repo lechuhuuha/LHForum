@@ -27,6 +27,7 @@
                     </div>
                 </div>
             </div>
+            <hr>
         </div>
         <div class="post-details-info1982">
             <p><?= $quest->content ?></p>
@@ -109,142 +110,44 @@
         <div class="container">
             <div class="row">
                 <div class="comments-container">
-                    <ul id="comments-list" class="comments-list">
-                        <li>
-                            <div class="comment-main-level">
-                                <!-- Avatar -->
-                                <div class="comment-avatar">
-                                    <img src="image/images.png" alt="" />
-                                </div>
-                                <!-- Contenedor del Comentario -->
-                                <div class="comment-box">
-                                    <div class="comment-head">
-                                        <h6 class="comment-name">
-                                            <a href="#">Lorena Rojero</a>
-                                        </h6>
-                                        <span><i class="fa fa-clock-o" aria-hidden="true">
-                                                January 15 , 2014 at 10:00 pm</i></span>
-                                        <i class="fa fa-reply"></i>
-                                        <i class="fa fa-heart"></i>
-                                    </div>
-                                    <div class="comment-content">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Velit omnis animi et iure
-                                        laudantium vitae, praesentium optio, sapiente
-                                        distinctio illo?
-                                    </div>
-                                </div>
-                            </div>
+                    <ul id="comments-list" class="comments-list comments">
+                        <?= $answers ?>
 
-                            <ul class="comments-list reply-list">
-                                <li>
-                                    <div class="comment-avatar">
-                                        <img src="image/images.png" alt="" />
-                                    </div>
-                                    <div class="comment-box">
-                                        <div class="comment-head">
-                                            <h6 class="comment-name">
-                                                <a href="#">Lorena Rojero</a>
-                                            </h6>
-                                            <span><i class="fa fa-clock-o" aria-hidden="true">
-                                                    January 15 , 2014 at 10:00 pm</i></span>
-                                            <i class="fa fa-reply"></i>
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                        <div class="comment-content">
-                                            Lorem ipsum dolor sit amet, consectetur
-                                            adipisicing elit. Velit omnis animi et iure
-                                            laudantium vitae, praesentium optio, sapiente
-                                            distinctio illo?
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="comment-avatar">
-                                        <img src="image/images.png" alt="" />
-                                    </div>
-                                    <div class="comment-box">
-                                        <div class="comment-head">
-                                            <h6 class="comment-name by-author">
-                                                <a href="#">Agustin Ortiz</a>
-                                            </h6>
-                                            <span><i class="fa fa-clock-o" aria-hidden="true">
-                                                    January 15 , 2014 at 10:00 pm</i></span>
-                                            <i class="fa fa-reply"></i>
-                                            <i class="fa fa-heart"></i>
-                                        </div>
-                                        <div class="comment-content">
-                                            Lorem ipsum dolor sit amet, consectetur
-                                            adipisicing elit. Velit omnis animi et iure
-                                            laudantium vitae, praesentium optio, sapiente
-                                            distinctio illo?
-                                        </div>
-                                    </div>
-                                </li>
-
-                            </ul>
-                        </li>
-                        <li>
-                            <div class="comment-main-level">
-                                <!-- Avatar -->
-                                <div class="comment-avatar">
-                                    <img src="image/images.png" alt="" />
-                                </div>
-                                <!-- Contenedor del Comentario -->
-                                <div class="comment-box">
-                                    <div class="comment-head">
-                                        <h6 class="comment-name">
-                                            <a href="#">Lorena Rojero</a>
-                                        </h6>
-                                        <span><i class="fa fa-clock-o" aria-hidden="true">
-                                                January 15 , 2014 at 10:00 pm</i></span>
-                                        <i class="fa fa-reply"></i>
-                                        <i class="fa fa-heart"></i>
-                                    </div>
-                                    <div class="comment-content">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Velit omnis animi et iure
-                                        laudantium vitae, praesentium optio, sapiente
-                                        distinctio illo?
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        
                     </ul>
+                    <span id="showComment" onclick="showCommentForm()"><a href="javascript:void(0)">Add an comment</a></span>
                 </div>
             </div>
         </div>
     </div>
-    <div class="comment289-box">
-        <h3>Leave A Reply</h3>
-        <hr />
-        <div class="row">
-            <div class="col-md-4">
-                <div class="replay-input-name42389">
-                    <p>Name*</p>
-                    <input type="text" class="name-box24894 input238-design" placeholder="Name" />
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="replay-email-input89298">
-                    <p>E-mail*</p>
-                    <input type="text" class="name-box24894 input238-design" placeholder="E-mail" />
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="replay-input-websit128923">
-                    <p>Website*</p>
-                    <input type="text" class="name-box24894 input238-design" placeholder="Website" />
-                </div>
-            </div>
-            <div class="post9320-box">
-                <input type="text" class="comment-input219882" placeholder="Enter Your Post" />
-            </div>
-            <button type="button" class="pos393-submit">
-                Post Your Answer
-            </button>
-        </div>
+    <div class="write_comment" style="display: none;" id="comment289" data-comment-id="-1">
+        <form method="POST" action="<?= URLROOT ?>quest/answer">
+            <input name="quest[id]" type="hidden" value="<?php echo $_GET['id'] ?>">
+            <input name="quest[parent_id]" type="hidden" value="-1">
+            <input name="quest[username]" type="text" placeholder="Your Name" required>
+            <textarea name="quest[content]" placeholder="Write your comment here..." required></textarea>
+            <button type="submit">Submit Comment</button>
+        </form>
     </div>
 </div>
 <!--                end of col-md-9 -->
+<script>
+    function showCommentForm() {
+        let btn = document.querySelector("#comment289");
+        if (btn.style.display == 'none') {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = 'none';
+        }
+    }
+    document.querySelectorAll('.comments .reply_answer_btn').forEach(element => {
+        element.addEventListener('click', () => {
+            document.querySelectorAll(".component").forEach(element => {
+                element.style.display = 'none';
+                console.log(element.getAttribute('data-comment-id'));
+
+            })
+            document.querySelector("div[data-comment-id='" + element.getAttribute("data-answer-id") + "']").style.display = 'block';
+
+        })
+    })
+</script>
