@@ -5,6 +5,7 @@ namespace Frdb\Controllers;
 use \Lchh\DatabaseTable;
 use \Lchh\Authentication;
 use \Lchh\CountOnl;
+use \Frdb\Service\Answer;
 
 class Quest
 {
@@ -12,6 +13,7 @@ class Quest
     private $categoriesTable;
     private $tagsTable;
     private $category_questionsTable;
+    private $answerService;
     private $CountOnl;
 
     public function __construct(
@@ -19,6 +21,7 @@ class Quest
         DatabaseTable $categoriesTable,
         DatabaseTable $tagsTable,
         DatabaseTable $category_questionsTable,
+        Answer $answerService,
         CountOnl $CountOnl
 
 
@@ -27,6 +30,7 @@ class Quest
         $this->categoriesTable = $categoriesTable;
         $this->tagsTable = $tagsTable;
         $this->category_questionsTable = $category_questionsTable;
+        $this->answerService = $answerService;
         $this->CountOnl = $CountOnl;
     }
     public function list()
@@ -77,6 +81,7 @@ class Quest
 
         if (isset($_GET['id'])) {
             $quest = $this->questTable->findById($_GET['id']);
+            $answers = $this->answerService->list($_GET['id']);
             $uvon = $this->CountOnl->getRemoteAddr();
 
             $inactive = 120;
@@ -98,6 +103,7 @@ class Quest
             'title' => $title,
             'variables' => [
                 'quest' => $quest ?? null,
+                'answers' => $answers
 
             ]
         ];
