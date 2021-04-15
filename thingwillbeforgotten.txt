@@ -1,0 +1,131 @@
+    method in answer service
+    protected function htmlForMainCmt($answer, $count, $isReply = false)
+    {
+
+        $renderTime = $this->renderTime($answer);
+        $html = '<div class="comment-main-level">
+        <!-- Avatar -->
+        <div class="comment-avatar">
+            <img src="image/images.png" alt="" />
+        </div>
+        <!-- Contenedor del Comentario -->
+        <div class="comment-box">
+            <div class="comment-head">
+                <h6 class="comment-name">
+                    <a href="#">Lorena Rojero</a>
+                </h6>
+                <span> ' .
+            $renderTime
+            .
+            '   </span>
+                <i class="fa fa-reply reply-btn"></i>
+                <i class="fa fa-heart"></i>
+            </div>
+            <div class="comment-content">
+                ' .
+            $answer->content
+            . '
+            </div>
+            <br>
+            ' . $this->repCmtForm($answer, $count) . '
+            </div>
+    </div>';
+        if ($isReply) {
+            $html .= '';
+        }
+        return $html;
+    }
+        protected function renderHtml($data)
+    {
+        $html = '<!-- Avatar -->
+        <div class="comment-avatar">
+            <img src="image/images.png" alt="" />
+        </div>
+        <!-- Contenedor del Comentario -->
+        <div class="comment-box">
+            <div class="comment-head">
+                <h6 class="comment-name">
+                    <a href="#">Lorena Rojero</a>
+                </h6>
+                <span>' .
+            $this->renderTime($data)
+            . '</span>
+            <i class="fa fa-reply reply-btn"></i>
+            <i class="fa fa-heart"></i>
+        </div>
+        <div class="comment-content">
+        ' . $data->content . '
+        </div> 
+        <br>
+        ' . $this->repCmtForm($data, $data->id) .
+            '
+        </div> ';
+    }
+      protected function repCmtForm($data, $count)
+    {
+        $html = '<div data-comment-id ="' . $count . '"  style="display: none ; "  class="comment-head cmt-section">
+        
+        <form method="POST" action="' . URLROOT . 'quest/answer">
+            <input type="hidden" name="quest[id]" value="' . $_GET['id'] . '">
+            <input type="hidden" name="quest[parent_id]" value="' . $data->id . '">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="replay-input-name42389">
+                        <input type="text" name="quest[username]" class="name-box24894 input238-design" placeholder="Name" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="replay-email-input89298">
+                        <input type="text" name="quest[email]" class="name-box24894 input238-design" placeholder="E-mail" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="replay-input-websit128923">
+                        <input type="text" name="quest[website]" class="name-box24894 input238-design" placeholder="Website" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="quest[content]" class="comment-input219882" placeholder="Enter Your Post" />
+                </div>
+                <button type="submit"style="width:100%;" class="pos393-submit">
+                    Post Your Answer
+                </button>
+            </div>
+        </form>
+
+    </div>';
+        return $html;
+    }
+html in questdetails.html.php
+<script>
+    // function showCommentForm() {
+    //     var paragraph = document.getElementById("comment289");
+    //     if (paragraph.style.display == "none") {
+    //         paragraph.style.display = "";
+    //     } else {
+    //         paragraph.style.display = "none";
+    //     }
+    // }
+    // let keyArr = document.querySelectorAll(".comment-main-level .comment-box ");
+    // keyArr.forEach(element => {
+    //     console.log(element, 'element');
+    //     let replyBtn = element.querySelector('.comment-head .reply-btn');
+    //     console.log(replyBtn, 'replyBtn');
+    //     replyBtn.addEventListener('click', () => {
+    //         let commentHead = element.querySelector('.comment-box  .cmt-section');
+
+    //         let tempVal = commentHead.getAttribute('data-comment-id');
+    //         console.log(tempVal, 'tempVal');
+    //         let replyForm = document.querySelector(`div[data-comment-id="${tempVal}"]`);
+    //         if (replyForm.style.display == "none") {
+    //             replyForm.style.display = "";
+    //         } else {
+    //             replyForm.style.display = "none";
+    //         }
+    //     })
+
+
+
+
+    // })
+</script>
