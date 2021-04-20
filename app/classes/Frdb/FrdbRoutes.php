@@ -19,6 +19,7 @@ class FrdbRoutes implements \Lchh\Routes
     private $answerService;
     private $CountOnl;
     private $authentication;
+    private $htmlCut;
     public function __construct()
     {
         include __DIR__ . '/../../includes/DatabaseConnection.php';
@@ -37,6 +38,7 @@ class FrdbRoutes implements \Lchh\Routes
         $this->CountOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress());
         $this->authentication = new \Lchh\Authentication($this->usersTable, 'username', 'password');
         $this->answerService = new \Frdb\Service\Answer($this->answersTable, $this->user_answer_questTable, $this->authentication);
+        $this->htmlCut = new \Lchh\HtmlCut();
     }
     public function getRoutes(): array
     {
@@ -46,10 +48,12 @@ class FrdbRoutes implements \Lchh\Routes
             $this->tagsTable,
             $this->category_questionsTable,
             $this->answerService,
-            $this->CountOnl
+            $this->CountOnl,
+            $this->htmlCut
         );
         $pageControllers = new \Frdb\Controllers\Pages(
             $this->questsTable,
+            $this->answersTable,
             $this->categoriesTable,
             $this->tagsTable,
             $this->postFromRendaDb
