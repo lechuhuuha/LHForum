@@ -6,6 +6,7 @@ use \Lchh\DatabaseTable;
 use \Lchh\Authentication;
 use \Lchh\CountOnl;
 use \Frdb\Service\Answer;
+use Lchh\HtmlCut;
 
 class Quest
 {
@@ -15,6 +16,7 @@ class Quest
     private $category_questionsTable;
     private $answerService;
     private $CountOnl;
+    private $htmlCut;
 
     public function __construct(
         DatabaseTable $questTable,
@@ -22,7 +24,8 @@ class Quest
         DatabaseTable $tagsTable,
         DatabaseTable $category_questionsTable,
         Answer $answerService,
-        CountOnl $CountOnl
+        CountOnl $CountOnl,
+        HtmlCut $htmlCut
 
 
     ) {
@@ -32,6 +35,7 @@ class Quest
         $this->category_questionsTable = $category_questionsTable;
         $this->answerService = $answerService;
         $this->CountOnl = $CountOnl;
+        $this->htmlCut = $htmlCut;
     }
     public function list()
     {
@@ -76,11 +80,16 @@ class Quest
     }
     public function detail()
     {
-
         $title = 'Quest detail';
 
         if (isset($_GET['id'])) {
             $quest = $this->questTable->findById($_GET['id']);
+
+            if (!isset($_GET['readmore']) || $_GET['readmore'] == 0) {
+                $quest->content = $this->htmlCut->textLimit($quest->content, 400);
+                $quest->content .= '...<a href="' . URLROOT . 'quest/detail?id=' . $_GET['id'] . '&readmore=1' . '">Read more</a>';
+            } else {
+            }
             $answers = $this->answerService->list($_GET['id']);
             $uvon = $this->CountOnl->getRemoteAddr();
 
