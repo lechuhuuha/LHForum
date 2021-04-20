@@ -30,7 +30,7 @@
             <hr>
         </div>
         <div class="post-details-info1982">
-            <p><?= $quest->content ?></p>
+            <?= $quest->content ?>
             <hr />
             <div class="post-footer29032">
                 <div class="l-side2023">
