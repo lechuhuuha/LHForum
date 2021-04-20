@@ -7,16 +7,19 @@ use \Lchh\DatabaseTable;
 class Pages
 {
     private $questTable;
+    private $answersTable;
     private $categoriesTable;
     private $tagsTable;
     private $postFromRendaDb;
     public function __construct(
         DatabaseTable $questTable,
+        DatabaseTable $answersTable,
         DatabaseTable $categoriesTable,
         DatabaseTable $tagsTable,
         DatabaseTable $postFromRendaDb
     ) {
         $this->questTable = $questTable;
+        $this->answersTable = $answersTable;
         $this->categoriesTable = $categoriesTable;
         $this->tagsTable = $tagsTable;
         $this->postFromRendaDb = $postFromRendaDb;
@@ -43,7 +46,9 @@ class Pages
             'variables' => [
                 'categories' => $this->categoriesTable->findAll(),
                 'tags' => $this->tagsTable->findAll(),
-                'posts' => $this->postFromRendaDb->findAllWithLimit(1, 4)
+                'posts' => $this->postFromRendaDb->findAllWithLimit(1, 4),
+                'totalQuest' => $this->questTable->total(),
+                'totalAnswer' => $this->answersTable->total()
             ]
         ];
     }
