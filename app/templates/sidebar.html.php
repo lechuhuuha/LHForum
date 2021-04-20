@@ -3,8 +3,8 @@
                 <div class="status-part3821">
                     <h4>stats</h4>
                     <a href="#"><i class="fa fa-question-circle" aria-hidden="true">
-                            Question(20)</i></a>
-                    <i class="fa fa-comment" aria-hidden="true"> Answers(50)</i>
+                            Question(<?= $totalQuest ?>)</i></a>
+                    <i class="fa fa-comment" aria-hidden="true"> Answers(<?= $totalAnswer ?>)</i>
                 </div>
                 <div class="categori-part329">
                     <h4>Category</h4>
