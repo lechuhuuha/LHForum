@@ -22,4 +22,8 @@ class User
         ];
         $this->users_emailTable->save($user_email);
     }
+    public function hasPermission($permissions)
+    {
+        return $this->permissions & $permissions;
+    }
 }

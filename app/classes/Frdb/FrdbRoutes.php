@@ -136,7 +136,8 @@ class FrdbRoutes implements \Lchh\Routes
                 'POST' => [
                     'controller' => $this->answerService,
                     'action' => 'saveEdit'
-                ]
+                ],
+                'login' => true
             ],
             // category controller
             'category/list' => [
@@ -240,14 +241,13 @@ class FrdbRoutes implements \Lchh\Routes
     {
         return $this->authentication;
     }
-    // public function checkPermission($permission): bool
-    // {
-    //     $user = $this->authentication->getUser();
-    //     if ($user && $user->hasPermission($permission)) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
+    public function checkPermission($permission): bool
+    {
+        $user = $this->authentication->getUser();
+        if ($user && $user->hasPermission($permission)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
