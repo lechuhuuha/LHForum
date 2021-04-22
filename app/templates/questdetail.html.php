@@ -123,7 +123,8 @@
         <form method="POST" action="<?= URLROOT ?>quest/answer">
             <input name="quest[id]" type="hidden" value="<?php echo $_GET['id'] ?>">
             <input name="quest[parent_id]" type="hidden" value="-1">
-            <input name="quest[username]" type="text" placeholder="Your Name" required>
+            <input name="quest[user_id]" type="hidden" value="<?= $_SESSION['userId'] ?? '' ?>">
+            <input name="quest[username]" type="text" value="<?= $_SESSION['username'] ?? '' ?>" placeholder="Your Name" required>
             <textarea name="quest[content]" placeholder="Write your comment here..." required></textarea>
             <button type="submit">Submit Comment</button>
         </form>
