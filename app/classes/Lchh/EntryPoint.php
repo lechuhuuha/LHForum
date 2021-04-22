@@ -28,39 +28,52 @@ class EntryPoint
         include __DIR__ . '/../../templates/' . $templateFileName;
         return ob_get_clean();
     }
-
-    public function run()
+    private function loadDefaultTemplate($templateFileName, $routes)
     {
-        $routes = $this->routes->getRoutes();
-        $controller = $routes['sidebar']['GET']['controller'];
-        $action = $routes['sidebar']['GET']['action'];
+        $controller = $routes[$templateFileName]['GET']['controller'];
+        $action = $routes[$templateFileName]['GET']['action'];
         $page = $controller->$action();
         $defaultOutput = $this->loadTemplate(
             $page['template'],
             $page['variables'],
         );
-        unset($controller);
-        unset($action);
+        return $defaultOutput;
+    }
+    public function run()
+    {
+        $routes = $this->routes->getRoutes();
+        // defaul template will auto get load
+        $defaultOutput = $this->loadDefaultTemplate('sidebar', $routes);
+        // count user visit website
         $userOnl = new \Lchh\CountOnl('username', new \Lchh\RemoteAddress);
+        // authentication class run through whole web
         $authentication = $this->routes->getAuthentication();
 
-        if (
-            isset($routes[$this->route]['login'])
-            && !$authentication->isLoggedIn()
-        ) {
-            header('Location:' . URLROOT . 'login/error');
-        } 
+        if (!$authentication->isLoggedIn() && isset($routes[$this->route]["login"])) {
+            header('Location: ' . URLROOT . 'login/error');
+            exit;
+        }
+
+        // if (
+        //     isset($routes[$this->route]["login"])
+        //     && !$authentication->isLoggedIn()
+        // ) {
+        //     header('Location: ' . URLROOT . 'login/error');
+        // }
         // elseif (
         //     isset($routes[$this->route]['permissions'])
         //     && !$this->routes->checkPermission($routes[$this->route]['permissions'])
         // ) {
         //     header('Location:' . URLROOT . 'login/error');
         // }
+
+        // Check to see if controller and action exists or not
         if (isset($routes[$this->route][$this->method]['controller']) && isset($routes[$this->route][$this->method]['action'])) {
             $controller = $routes[$this->route][$this->method]['controller'];
             $action = $routes[$this->route][$this->method]['action'];
         } else {
             header('Location:' . URLROOT . 'quest/list');
+            exit;
         }
         $page =  $controller->$action();
 
